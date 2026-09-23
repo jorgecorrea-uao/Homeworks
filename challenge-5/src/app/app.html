@@ -1,0 +1,27 @@
+<main class="container">
+  <h1>Cola del cajero</h1>
+
+  <form (ngSubmit)="addPerson()" class="form">
+    <input name="name" placeholder="Nombre" [(ngModel)]="name" />
+    <input name="amount" type="number" placeholder="Monto a retirar" [(ngModel)]="amount" />
+    <button type="submit">Enqueue</button>
+  </form>
+
+  <div class="info">
+    <span>Tamaño: {{ queue().size() }}</span>
+    <span>Siguiente (peek): {{ queue().peek()?.name ?? '—' }}</span>
+    <button (click)="attend()" [disabled]="queue().isEmpty()">Atender (dequeue)</button>
+  </div>
+
+  <ol class="queue">
+    @for (p of queue(); track $index) {
+      <li [class.first]="$first">
+        <strong>{{ p.name }}</strong>
+        <small>
+          {{ p.withdrawalAmount | currency:'COP':'symbol-narrow':'1.0-0' }}
+          · llegó {{ p.arrivalDate | date:'HH:mm:ss' }}
+        </small>
+      </li>
+    }
+  </ol>
+</main>
