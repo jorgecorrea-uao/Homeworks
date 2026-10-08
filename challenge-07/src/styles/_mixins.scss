@@ -1,0 +1,15 @@
+@use 'variables' as *;
+
+@mixin flex($justify: center, $align: center, $gap: 0) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
+}
+
+@mixin card($pad: 24px) {
+  background: #fff;
+  border-radius: $radius;
+  padding: $pad;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}

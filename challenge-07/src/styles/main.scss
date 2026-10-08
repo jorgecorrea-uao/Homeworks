@@ -1,0 +1,97 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'sass:color';
+
+body {
+  margin: 0;
+  background: $bg;
+  color: $text;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.btn-grad {
+  border: none;
+  background: linear-gradient(135deg, $primary, $secondary);
+  padding: ($spacing * 1.5) ($spacing * 3);
+  font-weight: 600;
+  color: #fff;
+
+  &:hover {
+    opacity: 0.9;
+    color: #fff;
+  }
+}
+
+.auth-wrapper {
+  @include flex(center, center);
+  min-height: 100vh;
+  padding: 16px;
+  background: linear-gradient(135deg, $primary, $secondary);
+}
+
+.auth-card {
+  @include card(32px);
+  width: 100%;
+  max-width: 380px;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: $primary;
+  }
+
+  a {
+    color: $primary;
+    font-weight: 600;
+  }
+}
+
+.app-navbar {
+  background: linear-gradient(135deg, $primary, $secondary);
+}
+
+.tasks-page {
+  max-width: 640px;
+  margin-top: 32px;
+
+  .page-title {
+    text-align: center;
+    margin-bottom: 24px;
+    color: $primary;
+  }
+
+  .empty {
+    text-align: center;
+    color: color.adjust($text, $lightness: 40%);
+  }
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+}
+
+.task-item {
+  @include flex(flex-start, center, 12px);
+  @include card(16px);
+  margin-bottom: 12px;
+
+  .task-title {
+    flex: 1;
+  }
+
+  .task-actions {
+    @include flex(center, center, 6px);
+  }
+
+  &.done .task-title {
+    text-decoration: line-through;
+    color: color.adjust($text, $lightness: 45%);
+  }
+}
+
+@for $i from 1 through 4 {
+  .mt-#{$i} {
+    margin-top: $spacing * $i;
+  }
+}
