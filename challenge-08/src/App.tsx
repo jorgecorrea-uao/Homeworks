@@ -12,12 +12,13 @@ export default function App() {
     <div style={{ padding: 16 }}>
       <h1>Árbol Binario</h1>
       <p>Insertados: {numeros.join(', ')}</p>
-      <div style={{ width: '100%', height: '80vh', border: '1px solid #ccc' }}>
+      <div style={{ width: '100%', height: '80vh', border: '1px solid #ccc', background: '#fff', borderRadius: 8 }}>
         <Tree
           data={arbol.aD3()}
           orientation="vertical"
           pathFunc="straight"
-          translate={{ x: 500, y: 60 }}
+          translate={{ x: 220, y: 60 }}
+          zoom={1.4}
           collapsible={false}
         />
       </div>
