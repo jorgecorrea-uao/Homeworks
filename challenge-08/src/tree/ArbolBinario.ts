@@ -1,5 +1,5 @@
 import { Nodo } from './Nodo';
-
+import type { RawNodeDatum } from 'react-d3-tree';
 export class ArbolBinario {
   raiz: Nodo | null = null;
 
@@ -56,6 +56,15 @@ export class ArbolBinario {
       actual = valor < actual.valor ? actual.izquierda : actual.derecha;
     }
     return false;
+  }
+
+  aD3(nodo = this.raiz): RawNodeDatum {
+    if (!nodo) return { name: '∅' };
+    if (nodo.esHoja()) return { name: String(nodo.valor) };
+    return {
+      name: String(nodo.valor),
+      children: [this.aD3(nodo.izquierda), this.aD3(nodo.derecha)],
+    };
   }
 
 }
