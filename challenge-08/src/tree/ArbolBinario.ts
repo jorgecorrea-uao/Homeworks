@@ -48,6 +48,14 @@ export class ArbolBinario {
     }
     return res;
   }
-
+  
+  buscar(valor: number): boolean {
+    let actual = this.raiz;
+    while (actual) {
+      if (valor === actual.valor) return true;
+      actual = valor < actual.valor ? actual.izquierda : actual.derecha;
+    }
+    return false;
+  }
 
 }
