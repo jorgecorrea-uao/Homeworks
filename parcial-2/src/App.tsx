@@ -1,0 +1,1 @@
+export const App = () => <h1>Parcial 2</h1>;
