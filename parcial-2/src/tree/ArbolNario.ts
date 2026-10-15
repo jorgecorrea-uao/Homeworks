@@ -1,5 +1,4 @@
 import { Nodo, type Elemento } from './Nodo';
-import { listar } from './recorridos';
 
 export const RAIZ_ID = 'raiz';
 
@@ -23,7 +22,7 @@ export class ArbolNario {
     return null;
   }
 
-  validar(padreId: string, nombre: string) {
+  validar(padreId: string) {
     const padre = this.buscar(padreId);
     if (!padre) {
       throw new Error('La carpeta destino no existe');
@@ -31,43 +30,27 @@ export class ArbolNario {
     if (!padre.esCarpeta()) {
       throw new Error('Un archivo no puede tener hijos');
     }
-    const repetido = padre.hijos.some((hijo) => hijo.valor.nombre.toLowerCase() === nombre.toLowerCase());
-    if (repetido) {
-      throw new Error(`Ya existe "${nombre}" en ${padre.valor.nombre}`);
-    }
     return padre;
   }
 
   insertar(elemento: Elemento) {
-    const padre = this.validar(elemento.padreId, elemento.nombre);
-    const nuevoNodo = new Nodo(elemento);
-    padre.agregarHijo(nuevoNodo);
-    return nuevoNodo;
+    const padre = this.validar(elemento.padreId);
+    padre.agregarHijo(new Nodo(elemento));
   }
 
-  contar() {
-    const nodos = listar(this.raiz).slice(1);
-    const carpetas = nodos.filter((nodo) => nodo.esCarpeta()).length;
-    return { carpetas, archivos: nodos.length - carpetas };
+  cargarHijos(padre: Nodo, elementos: Elemento[]) {
+    for (let elemento of elementos) {
+      if (elemento.padreId === padre.valor.id) {
+        const hijo = new Nodo(elemento);
+        padre.agregarHijo(hijo);
+        this.cargarHijos(hijo, elementos);
+      }
+    }
   }
 
   static desdeLista(elementos: Elemento[]) {
     const arbol = new ArbolNario();
-    const nodos = new Map<string, Nodo>();
-    nodos.set(RAIZ_ID, arbol.raiz);
-
-    for (let elemento of elementos) {
-      nodos.set(elemento.id, new Nodo(elemento));
-    }
-
-    for (let elemento of elementos) {
-      const padre = nodos.get(elemento.padreId);
-      const hijo = nodos.get(elemento.id)!;
-      if (padre && padre.esCarpeta()) {
-        padre.agregarHijo(hijo);
-      }
-    }
-
+    arbol.cargarHijos(arbol.raiz, elementos);
     return arbol;
   }
 }

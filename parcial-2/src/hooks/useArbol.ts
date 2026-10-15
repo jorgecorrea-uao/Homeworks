@@ -27,14 +27,13 @@ export function useArbol() {
       throw new Error('Debes iniciar sesión para crear carpetas o archivos');
     }
 
-    const limpio = nombre.trim();
-    if (!limpio) {
+     if (!nombre.trim()) {
       throw new Error('El nombre no puede estar vacío');
     }
 
-    arbol.validar(padreId, limpio);
+    arbol.validar(padreId);
 
-    const ref = await add({ nombre: limpio, tipo, padreId, creadoPor: user.email });
+    const ref = await add({ nombre: nombre.trim(), tipo, padreId, creadoPor: user.email });
     if (ref) {
       await getAll();
     }
