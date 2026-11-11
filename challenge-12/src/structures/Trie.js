@@ -34,4 +34,28 @@ export class Trie {
     }
     return current.isEndOfWord;
   }
+  searchNode(prefix) {
+    let current = this.root;
+    for (let character of prefix) {
+      if (current.children[character] === undefined) {
+        return null;
+      }
+      current = current.children[character];
+    }
+    return current;
+  }
+
+  collect(node, results = []) {
+    if (node.isEndOfWord) results.push(node.product);
+    for (let character in node.children) {
+      this.collect(node.children[character], results);
+    }
+    return results;
+  }
+
+  startsWith(prefix) {
+    const node = this.searchNode(prefix);
+    if (!node) return [];
+    return this.collect(node);
+  }
 }
