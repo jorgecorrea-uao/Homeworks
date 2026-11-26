@@ -1,0 +1,65 @@
+@use "./styles/variables" as *;
+@use "./styles/mixins" as *;
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: $bg;
+  color: $text;
+}
+
+.app {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px;
+
+  h1 {
+    color: $primary;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  input,
+  select {
+    @include input;
+  }
+
+  button {
+    @include button;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  li {
+    padding: 4px 0;
+    color: $muted;
+    cursor: pointer;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}
+
+.ok {
+  color: $primary;
+}
+
+.error {
+  color: #e35050;
+}
