@@ -1,0 +1,25 @@
+@use "variables" as *;
+
+@mixin card {
+  background: $card;
+  border-radius: $radius;
+  padding: 20px;
+}
+
+@mixin button($color: $primary) {
+  background: $color;
+  color: $bg;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@mixin input {
+  padding: 10px;
+  border: none;
+  border-radius: $radius;
+  background: #2a2a2a;
+  color: $text;
+}
